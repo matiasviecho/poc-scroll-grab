@@ -1,0 +1,38 @@
+.item-container {
+  display: grid;
+  grid-template-rows: 1fr 2fr;
+  height: 250px;
+  width: 300px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #363636;
+  &.fifty-test {
+    header {
+      background: red;
+    }
+    main {
+      background: blueviolet;
+    }
+  }
+  header {
+    background: #242f40;
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 600;
+  }
+
+  main {
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+  header,
+  main {
+    color: white;
+    padding: 16px;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+  }
+}
