@@ -4,29 +4,35 @@ import { Item } from '../Item/Item';
 import styles from './List.module.scss';
 export const List = ({ items }) => {
   const [active, isActive] = useState(false);
-  const pointerMove = useRef();
+  const [initialScrollState, setInitialScrollState] = useState(0);
+  const [currentPosition, setCurrentPosition] = useState(0);
   const ref = useRef();
   if (!items || items.length === 0) return <div>No hay elementos</div>;
   const handlePointerMove = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (!active) return;
-    //console.log('e:', e);
-    //console.log('e.nativeEvent.offsetX:', e.nativeEvent.offsetX);
-    const targetScrollLeft =
-      ref.current.scrollLeft - e.nativeEvent.offsetX + 100;
+    const mouseX = e.clientX;
+    const scroll = initialScrollState - mouseX;
     const updateScroll = () => {
-      ref.current.scrollLeft = targetScrollLeft;
+      ref.current.scrollLeft = currentPosition + scroll;
     };
-
-    requestAnimationFrame(updateScroll);
+    setTimeout(() => {
+      requestAnimationFrame(updateScroll);
+    }, 0);
   };
   return (
     <ul
       className={styles['list']}
-      onPointerDown={(e) => {
+      onMouseDown={(e) => {
         isActive(true);
+        setInitialScrollState(e.clientX);
       }}
-      onPointerUp={() => isActive(false)}
-      onPointerMove={(e) => handlePointerMove(e)}
+      onMouseUp={() => {
+        isActive(false);
+        setCurrentPosition(ref.current.scrollLeft);
+      }}
+      onMouseMove={(e) => handlePointerMove(e)}
       ref={ref}
     >
       {items.map((item, index) => {

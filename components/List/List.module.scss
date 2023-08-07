@@ -5,6 +5,11 @@
   padding: 0 24px;
   align-items: center;
   justify-content: flex-start;
+  scroll-snap-type: x proximity;
+  cursor: grab;
+  &:active {
+    cursor: grabbing;
+  }
   * {
     user-select: none;
   }
