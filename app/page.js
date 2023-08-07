@@ -1,20 +1,25 @@
 import { List } from '@/components/List/List';
 import styles from './page.module.scss'
+import Link from 'next/link';
 
-export default async function Home() {
+export default async function Home({searchParams: {use = null}}) {
   const fetchData = async () => {
     const res = await fetch("https://jsonplaceholder.typicode.com/posts");
     const json = await res.json();
     return json;
   }
+
+  const isBig = use ? use.includes("big") : false;
   const data = await fetchData();
   return (
     <section className={styles['container']}>
       <header />
       <main>
-        <List items={data}/>
+        <List items={data} format={use}/>
       </main>
-      <footer />
+      <footer>        
+       {!isBig  ? <Link href={'/?use=big'}>go bigger</Link> : <Link href={'/'}>go smaller</Link>}
+      </footer>
     </section>
   )
 }

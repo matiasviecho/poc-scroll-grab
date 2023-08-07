@@ -2,7 +2,7 @@
 import { useRef, useState } from 'react';
 import { Item } from '../Item/Item';
 import styles from './List.module.scss';
-export const List = ({ items }) => {
+export const List = ({ items, format }) => {
   const [active, isActive] = useState(false);
   const [initialScrollState, setInitialScrollState] = useState(0);
   const [currentPosition, setCurrentPosition] = useState(0);
@@ -23,7 +23,7 @@ export const List = ({ items }) => {
   };
   return (
     <ul
-      className={styles['list']}
+      className={`${styles['list']} ${format === 'big' ? styles['big'] : ''} `}
       onMouseDown={(e) => {
         isActive(true);
         setInitialScrollState(e.clientX);
