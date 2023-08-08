@@ -1,6 +1,5 @@
 import { List } from '@/components/List/List';
-import styles from './page.module.scss';
-import Image from 'next/image';
+import styles from '../page.module.scss';
 import Link from 'next/link';
 export default async function Home() {
   const fetchData = async () => {
@@ -13,19 +12,14 @@ export default async function Home() {
     <section className={styles['container']}>
       <header />
       <main>
-        <List items={data} />
+        <List
+          items={data}
+          use="big"
+        />
       </main>
       <footer>
-        <Link href={'/big'}>go bigger</Link>
+        <Link href={'/small'}>go smaller</Link>
       </footer>
-      <Image
-        src="/nextjs-github-pages/vercel.svg"
-        alt="Vercel Logo"
-        className={styles.vercelLogo}
-        width={100}
-        height={24}
-        priority
-      />
     </section>
   );
 }
